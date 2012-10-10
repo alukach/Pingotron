@@ -9,7 +9,7 @@ import datetime
 class Player(models.Model):
     name = models.CharField(max_length=200)
     alias = models.CharField(max_length=200, blank=True)
-    avatar = models.ImageField(upload_to="avatar")
+    avatar = models.ImageField(upload_to="avatar", blank=True)
     email = models.EmailField(blank=True)
     quote = models.CharField(max_length=240, blank=True)
 
