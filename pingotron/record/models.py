@@ -29,7 +29,7 @@ class Game(models.Model):
     winnerScore = models.IntegerField()
     loserScore = models.IntegerField()
 
-    targetScore = models.IntegerField() #What score you're playing to
+    targetScore = models.IntegerField(default="11") #What score you're playing to
     winBy = models.IntegerField(default="2")
 
     datetime = models.DateTimeField(blank=True)
@@ -40,8 +40,8 @@ class Game(models.Model):
         (u'L', u'Lunch'),
         (u'JJ', u'Jimmy John\'s'),
     )
-    stakeValue = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
-    stakeUnit = models.CharField(max_length=2,choices=UNITS, blank=True)
+    stakeValue = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    stakeUnit = models.CharField(max_length=2,choices=UNITS, blank=True, null=True)
 
     def save(self, **kwargs):
         """
@@ -59,7 +59,7 @@ class Game(models.Model):
         super(Game, self).save()
 
     def __unicode__(self):
-        if stakeValue:
+        if self.stakeValue:
             return "%s - %s (%s) vs %s (%s) for %s %s" % (self.datetime.strftime('%Y-%m-%d %I:%M%p'), self.winner, self.winnerScore, self.loser, self.loserScore, self.stakeValue, self.stakeUnit)
         else:
             return "%s - %s (%s) vs %s (%s)" % (self.datetime.strftime('%Y-%m-%d %I:%M%p'), self.winner, self.winnerScore, self.loser, self.loserScore)
