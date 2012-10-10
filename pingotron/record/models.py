@@ -26,9 +26,11 @@ class Game(models.Model):
     winner = models.ForeignKey(Player, related_name='win')
     loser = models.ForeignKey(Player, related_name='loss')
 
-    targetScore = models.IntegerField() #What score you're playing to
     winnerScore = models.IntegerField()
     loserScore = models.IntegerField()
+
+    targetScore = models.IntegerField() #What score you're playing to
+    winBy = models.IntegerField(default="2")
 
     datetime = models.DateTimeField(blank=True)
 
@@ -42,6 +44,22 @@ class Game(models.Model):
     stakeUnit = models.CharField(max_length=2,choices=UNITS, blank=True)
 
     def save(self, **kwargs):
+        """
+        Some basic last-minute validation and fill in possible missing data.
+        Data should fully be cleaned at the form: https://docs.djangoproject.com/en/1.1/ref/forms/validation/#form-field-default-cleaning
+        """
+        if (self.stakeValue and not self.stakeUnit) or (self.stakeUnit and not self.stakeValue):
+            return
+        if (self.loserScore > self.winnerScore):
+            return
+        if not (self.winnerScore - self.loserScore) >= self.winBy:
+            return
         if not self.datetime:
             self.datetime = datetime.datetime.now()
         super(Game, self).save()
+
+    def __unicode__(self):
+        if stakeValue:
+            return "%s - %s (%s) vs %s (%s) for %s %s" % (self.datetime.strftime('%Y-%m-%d %I:%M%p'), self.winner, self.winnerScore, self.loser, self.loserScore, self.stakeValue, self.stakeUnit)
+        else:
+            return "%s - %s (%s) vs %s (%s)" % (self.datetime.strftime('%Y-%m-%d %I:%M%p'), self.winner, self.winnerScore, self.loser, self.loserScore)
