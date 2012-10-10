@@ -1,3 +1,11 @@
+# Mac Files
+.DS_Store
+
+# Vim
+.*.swp
+
+# Stock Python Stuff from Github
+##################################
 *.py[co]
 
 # Packages
