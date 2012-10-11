@@ -25,14 +25,15 @@ class Player(models.Model):
 class Game(models.Model):
     winner = models.ForeignKey(Player, related_name='win')
     loser = models.ForeignKey(Player, related_name='loss')
-
+ 
     winnerScore = models.IntegerField()
     loserScore = models.IntegerField()
 
+ 
     targetScore = models.IntegerField(default="11") #What score you're playing to
     winBy = models.IntegerField(default="2")
-
-    datetime = models.DateTimeField(blank=True)
+ 
+     datetime = models.DateTimeField(blank=True)
 
     UNITS = (
         (u'B', u'Standard Beer Units'),
