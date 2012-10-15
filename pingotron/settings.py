@@ -152,3 +152,8 @@ LOGGING = {
         },
     }
 }
+
+try:
+    from local_settings import *
+except ImportError, exp:
+    print "couldn't import local_settings"

@@ -33,7 +33,7 @@ class Game(models.Model):
     targetScore = models.IntegerField(default="11") #What score you're playing to
     winBy = models.IntegerField(default="2")
  
-     datetime = models.DateTimeField(blank=True)
+    datetime = models.DateTimeField(blank=True)
 
     UNITS = (
         (u'B', u'Standard Beer Units'),
