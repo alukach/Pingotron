@@ -22,6 +22,10 @@ DATABASES = {
     }
 }
 
+# Deprecated in Django 1.5
+# REGISTRATION / AUTHENTICATION Settings: http://www.michelepasin.org/techblog/2011/01/14/setting-up-django-registration/
+AUTH_PROFILE_MODULE = 'record.Player'
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -120,6 +124,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
 
     'pingotron.record',
+    'django_extensions',
+    'profiles',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
