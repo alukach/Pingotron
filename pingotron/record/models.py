@@ -5,9 +5,6 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 
-# So, there's definitely a Player model, representing a person and their profile.
-# There's a Match model, each Match is a set of games (1 or 3 or possibly more)
-
 class PlayerProfile(models.Model):
     user = models.OneToOneField(User)
     alias = models.CharField(max_length=200, blank=True)
@@ -45,6 +42,7 @@ class Game(models.Model):
 
     winnerScore = models.IntegerField()
     loserScore = models.IntegerField()
+
 
     targetScore = models.IntegerField(default="11") #What score you're playing to
     winBy = models.IntegerField(default="2")
