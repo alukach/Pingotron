@@ -7,7 +7,14 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'pingotron.views.home', name='home'),
-    # url(r'^pingotron/', include('pingotron.foo.urls')),
+    (r'^', include('pingotron.record.urls')),
+
+    # About and Contact
+    #(r'^', include('livingcitymap.about.urls')),
+
+    #(r'^user/', include('livingcitymap.accounts.urls')),
+
+    #(r'^', include('livingcitymap.events.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

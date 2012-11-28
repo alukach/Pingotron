@@ -3,8 +3,6 @@ import datetime
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
-# Create your models here.
-
 class PlayerProfile(models.Model):
     user = models.OneToOneField(User)
     alias = models.CharField(max_length=200, blank=True)
@@ -24,17 +22,11 @@ class PlayerProfile(models.Model):
 def create_player_with_user(sender, **kwargs):
     """When creating a new user, make a profile for him or her."""
     u = kwargs["instance"]
-    print u
-    print type(u)
     if not PlayerProfile.objects.filter(user=u):
         PlayerProfile(user=u).save()
 
+# Signal - Create PlayerProfile when User is created
 post_save.connect(create_player_with_user, sender=User)
-
-def get_absolute_url(self):
-    return ('profiles_profile_detail', (), { 'username': self.User.username })
-get_absolute_url = models.permalink(get_absolute_url)
-
 
 class Game(models.Model):
     winner = models.ForeignKey(User, related_name='win')
@@ -44,9 +36,7 @@ class Game(models.Model):
     loserScore = models.IntegerField()
 
 
-    targetScore = models.IntegerField(default="11") #What score you're playing to
-    winBy = models.IntegerField(default="2")
-    suckerServe = models.BooleanField(default=False)
+    targetScore = models.IntegerField(default="11", choices=((11, 11),(21, 21))) #What score you're playing to
 
     datetime = models.DateTimeField(blank=True)
 
@@ -65,12 +55,6 @@ class Game(models.Model):
         Some basic last-minute validation and fill in possible missing data.
         Data should fully be cleaned at the form: https://docs.djangoproject.com/en/1.1/ref/forms/validation/#form-field-default-cleaning
         """
-        if (self.stakeValue and not self.stakeUnit) or (self.stakeUnit and not self.stakeValue):
-            return
-        if (self.loserScore > self.winnerScore):
-            return
-        if not (self.winnerScore - self.loserScore) >= self.winBy:
-            return
         if not self.datetime:
             self.datetime = datetime.datetime.now()
         super(Game, self).save()
