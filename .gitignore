@@ -3,6 +3,7 @@
 
 # Vim
 .*.swp
+.*.swo
 
 # Stock Python Stuff from Github
 ##################################
