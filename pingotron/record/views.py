@@ -15,14 +15,24 @@ def create_game(request):
     if request.method == 'POST': # If the form has been submitted...
         form = CreateGameForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
-            # Process the data in form.cleaned_data
-            #address = form.cleaned_data['address']
-            #neighborhood = form.cleaned_data['neighborhood']
-            #location = form.cleaned_data['location']
             form.save()
-            #return HttpResponseRedirect(reverse('pingotron.record.views.overview')) # Redirect after POST
-            render(request, 'record/create_game.html', {'form': form,})
-            return HttpResponse('<p>Game created</p>')
+            return HttpResponse('<p>Form saved!</p>')
+        else:
+            raise
     else:
         form = CreateGameForm() # An unbound form
     return render(request, 'record/create_game.html', {'form': form,})
+
+@login_required
+def edit_profile(request):
+    profile = get_object_or_404(PlayerProfile, user=request.user)
+    if request.method == 'POST': # If the form has been submitted...
+        form = EditProfile(request.POST, instance=profile) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            form.save()
+            return HttpResponse('<p>Form saved!</p>')
+        else:
+            raise
+    else:
+        form = EditProfile(instance=profile) # An unbound form
+    return render(request, 'profiles/edit_profile.html', {'user': profile.user, 'form': form,})

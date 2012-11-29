@@ -30,9 +30,9 @@ post_save.connect(create_player_with_user, sender=User)
 
 class Game(models.Model):
     winner = models.ForeignKey(User, related_name='win')
-    loser = models.ForeignKey(User, related_name='loss')
-
     winnerScore = models.IntegerField()
+
+    loser = models.ForeignKey(User, related_name='loss')
     loserScore = models.IntegerField()
 
 

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ user }}</h1>
+<form method="post">{% csrf_token %}
+<div>
+    <div id="alias">
+        <label for="id_alias">Alias</label>
+        <div>{{ form.alias }}</div>
+    </div>
+    <div id="avatar">
+        <label for="id_avatar">Avatar</label>
+        <div>{{ form.avatar }}</div>
+    </div>
+    <div id="quote">
+        <label for="id_quote">Quote</label>
+        <div>{{ form.quote }}</div>
+    </div>
+</div>
+<input type="submit" value="Submit" />
+</form>
+{% endblock content %}

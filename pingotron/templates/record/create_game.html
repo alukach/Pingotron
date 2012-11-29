@@ -2,10 +2,31 @@
 
 {% block content %}
 <h1>Game Form</h1>
-<form action="/game/" method="post">{% csrf_token %}
-{{ form.as_table }}
+<form method="post">{% csrf_token %}
+<div>
+    <div id="winner">
+        <label for="id_winner">Winner</label>
+        <div>{{ form.winner }}</div>
+        <div>{{ form.winnerScore }}</div>
+    </div>
+    <div id="loser">
+        <label for="id_loser">Loser</label>
+        <div>{{ form.loser }}</div>
+        <div>{{ form.loserScore }}</div>
+    </div>
+    <div id="other">
+        <label for="id_targetScore">Target Score</label>
+        <div>{{ form.targetScore }}</div>
+        <label>DateTime</label>
+        <div>{{ form.datetime }}</div>
+    </div>
+    <div id="stake">
+        <label for="id_stakeValue">Stake</label>
+        <div>{{ form.stakeValue }}</div>
+        <div>{{ form.stakeUnit }}</div>
+    </div>
+</div>
 <input type="submit" value="Submit" />
 </form>
-
 
 {% endblock content %}
