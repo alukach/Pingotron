@@ -13,6 +13,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+LOGIN_URL = '/login/'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -128,7 +130,7 @@ INSTALLED_APPS = (
 
     'pingotron.record',
     'django_extensions',
-    'profiles',
+    #'profiles',
     #'south',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',

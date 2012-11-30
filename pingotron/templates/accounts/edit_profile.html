@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{ user }}</h1>
+<h1>{{ user }}{% if user.alias %} aka {{ user.alias }}{% endif %}</h1>
 <form method="post">{% csrf_token %}
 <div>
     <div id="alias">

@@ -35,4 +35,4 @@ def edit_profile(request):
             raise
     else:
         form = EditProfile(instance=profile) # An unbound form
-    return render(request, 'profiles/edit_profile.html', {'user': profile.user, 'form': form,})
+    return render(request, 'accounts/edit_profile.html', {'user': request.user, 'form': form,})
