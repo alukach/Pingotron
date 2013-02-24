@@ -14,7 +14,6 @@ class PlayerProfile(models.Model):
             return self.alias
         else:
             return self.user.username
-
     class Meta:
         verbose_name_plural = "Player Profiles"
 
@@ -31,14 +30,16 @@ post_save.connect(create_player_with_user, sender=User)
 class Game(models.Model):
     winner = models.ForeignKey(User, related_name='win')
     winnerScore = models.IntegerField()
-
     loser = models.ForeignKey(User, related_name='loss')
     loserScore = models.IntegerField()
-
-
     targetScore = models.IntegerField(default="11", choices=((11, 11),(21, 21))) #What score you're playing to
+    gameDateTime = models.DateTimeField(default=datetime.datetime.now(), blank=True)
 
-    datetime = models.DateTimeField(blank=True)
+    dateCreated = models.DateTimeField(default=datetime.datetime.now(), auto_now_add=True)
+    #createdBy = models.ForeignKey(User, related_name="created%(app_label)s_%(class)s_related")
+
+    lastModified = models.DateTimeField(blank=True, null=True)
+    #modifiedBy = models.ForeignKey(User, related_name="modified%(app_label)s_%(class)s_related", blank=True, null=True)
 
     UNITS = (
         (u'B', u'Standard Beer Units'),
@@ -48,7 +49,6 @@ class Game(models.Model):
     )
     stakeValue = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     stakeUnit = models.CharField(max_length=2,choices=UNITS, blank=True, null=True)
-
 
     def save(self, **kwargs):
         """

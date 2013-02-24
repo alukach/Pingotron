@@ -3,26 +3,35 @@
 {% block content %}
 <h1>Game Form</h1>
 <form method="post">{% csrf_token %}
+{{ form.non_field_errors }}
 <div>
     <div id="winner">
-        <label for="id_winner">Winner</label>
+        <label for="id_winner">PlayerA</label>
+        {{ form.winner.errors }}
         <div>{{ form.winner }}</div>
+        {{ form.winnerScore.errors }}
         <div>{{ form.winnerScore }}</div>
     </div>
     <div id="loser">
-        <label for="id_loser">Loser</label>
+        <label for="id_loser">PlayerB</label>
+        {{ form.loser.errors }}
         <div>{{ form.loser }}</div>
+        {{ form.loserScore.errors }}
         <div>{{ form.loserScore }}</div>
     </div>
     <div id="other">
         <label for="id_targetScore">Target Score</label>
+        {{ form.targetScore.errors }}
         <div>{{ form.targetScore }}</div>
         <label>DateTime</label>
-        <div>{{ form.datetime }}</div>
+        {{ form.gameDateTime.errors }}
+        <div>{{ form.gameDateTime }}</div>
     </div>
     <div id="stake">
         <label for="id_stakeValue">Stake</label>
+        {{ form.stakeValue.errors }}
         <div>{{ form.stakeValue }}</div>
+        {{ form.stakeUnit.errors }}
         <div>{{ form.stakeUnit }}</div>
     </div>
 </div>

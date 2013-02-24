@@ -15,7 +15,10 @@ def create_game(request):
     if request.method == 'POST': # If the form has been submitted...
         form = CreateGameForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
-            form.save()
+            game = form.save(commit=False)
+            #game.createdBy = request.user
+            #game.modifiedBy = request.user
+            game.save()
             return HttpResponse('<p>Form saved!</p>')
         else:
             raise
